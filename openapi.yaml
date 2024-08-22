@@ -1,0 +1,274 @@
+openapi: 3.0.1
+info:
+  title: Automação residencial com dispositivos inteligentes - OpenAPI
+  description: 'API para o projeto de Sistemas Distribuídos do curso de Engenharia de Telecomunicações, IFSC-SJ.'
+               
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /dispositivos/{id}:
+    get:
+      tags:
+      - dispositivos
+      summary: Obtém informações sobre um dispositivo específico
+      operationId: buscaDispositivoPorId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Dispositivo'
+        "404":
+          description: Not Found
+    put:
+      tags:
+      - dispositivos
+      summary: Altera o valor de um dispositivo específico
+      description: 'Pode alterar o valor de um dispositivo específico, como por exemplo: a temperatura, o som, etc. E também pode ligar ou desligar um dispositivo'
+      operationId: alterarValorDispositivo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Dispositivo'
+        "404":
+          description: Not Found
+    delete:
+      tags:
+      - dispositivos
+      summary: Exclui um dispositivo
+      operationId: excluirDispositivo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+  /ambientes/{id}:
+    get:
+      tags:
+      - ambientes
+      summary: Obtém informações sobre um ambiente específico
+      operationId: buscaAmbientePorId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Ambiente'
+        "404":
+          description: Not Found
+    put:
+      tags:
+      - ambientes
+      summary: Liga ou desliga um ambiente
+      operationId: ligarDesligarAmbiente
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: boolean
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Ambiente'
+        "404":
+          description: Not Found
+    post:
+      tags:
+      - ambientes
+      summary: Adiciona um dispositivo ao ambiente
+      operationId: adicionarDispositivo_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: integer
+              format: int64
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Ambiente'
+        "404":
+          description: Not Found
+    delete:
+      tags:
+      - ambientes
+      summary: Exclui um ambiente
+      operationId: excluirAmbiente
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+  
+  /dispositivos:
+    get:
+      tags:
+      - dispositivos
+      summary: Obtém informações sobre todos os dispositivos
+      operationId: buscarTodas
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dispositivo'
+    post:
+      tags:
+      - dispositivos
+      summary: Adiciona um dispositivo
+      operationId: adicionarDispositivo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dispositivo'
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Dispositivo'
+  /ambientes:
+    get:
+      tags:
+      - ambientes
+      summary: Obtém informações sobre todos os ambientes
+      operationId: buscarAmbientes
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ambiente'
+    post:
+      tags:
+      - ambientes
+      operationId: adicionarAmbiente
+      summary : Cria um ambiente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ambiente'
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Ambiente'
+components:
+  schemas:
+    Dispositivo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+        tipo:
+          type: integer
+          format: int32
+        estado:
+          type: boolean
+        valor:
+          type: number
+          format: float
+        ambiente:
+          type: boolean
+        nomeAmbiente:
+          type: string
+    Ambiente:
+      type: object
+      properties:
+        dispositivos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dispositivo'
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
