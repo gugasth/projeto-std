@@ -1,0 +1,257 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI do projeto de STD
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /dispositivos:
+    get:
+      tags:
+      - dispositivo-controller
+      operationId: buscarTodas
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dispositivo'
+    put:
+      tags:
+      - dispositivo-controller
+      operationId: alterarValorDispositivo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                valor:
+                  type: number
+                  format: float
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Dispositivo'
+  /dispositivos/on_off:
+    put:
+      tags:
+      - dispositivo-controller
+      operationId: ligarDesligarDispositivo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                estado:
+                  type: boolean
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Dispositivo'
+  /dispositivos/grupos/on_off:
+    put:
+      tags:
+      - dispositivo-controller
+      operationId: ligarDesligarAmbiente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                estado:
+                  type: boolean
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Ambiente'
+  /dispositivos/grupos/criar:
+    post:
+      tags:
+      - dispositivo-controller
+      operationId: adicionarAmbiente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                nome:
+                  type: string
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Ambiente'
+  /dispositivos/grupos/adicionar:
+    post:
+      tags:
+      - dispositivo-controller
+      operationId: adicionarDispositivo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idAmbiente:
+                  type: integer
+                  format: int64
+                idDispositivo:
+                  type: integer
+                  format: int64
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Ambiente'
+  /dispositivos/{id}:
+    get:
+      tags:
+      - dispositivo-controller
+      operationId: buscaDispositivoPorId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Dispositivo'
+    delete:
+      tags:
+      - dispositivo-controller
+      operationId: excluirDispositivo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+  /dispositivos/grupos:
+    get:
+      tags:
+      - dispositivo-controller
+      operationId: buscarAmbientes
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ambiente'
+  /dispositivos/grupos/{id}:
+    get:
+      tags:
+      - dispositivo-controller
+      operationId: buscaAmbientePorId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Ambiente'
+    delete:
+      tags:
+      - dispositivo-controller
+      operationId: excluirAmbiente
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+components:
+  schemas:
+    Dispositivo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+        tipo:
+          type: integer
+          format: int32
+        estado:
+          type: boolean
+        valor:
+          type: number
+          format: float
+        ambiente:
+          type: boolean
+        nomeAmbiente:
+          type: string
+    Ambiente:
+      type: object
+      properties:
+        dispositivos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dispositivo'
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string

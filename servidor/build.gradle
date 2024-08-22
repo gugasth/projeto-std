@@ -1,0 +1,47 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.0'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id "io.freefair.lombok" version "8.4"
+}
+
+group = 'engtelecom.std'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+bootJar {
+    archiveFileName = 'servidor.jar'
+}
+
+jar {
+	archiveBaseName = 'servidor'
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    manifest {
+        attributes(
+                'Main-Class': 'engtelecom.std.ProjetoApplication'
+        )
+    }
+	from {
+		configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+}
+
+dependencies {
+	// https://mvnrepository.com/artifact/com.rabbitmq/amqp-client
+    implementation 'com.rabbitmq:amqp-client:5.17.0'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

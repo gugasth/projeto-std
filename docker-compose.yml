@@ -1,0 +1,58 @@
+version: '3.8'
+
+networks:
+  rede-automacao:
+
+services:
+  rabbitmq:
+    image: "rabbitmq:3-management-alpine"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      rede-automacao:
+
+  servidor:
+    build:
+      dockerfile: Dockerfile
+      context: ./servidor
+    command: ["java", "-jar", "/app/servidor.jar"]
+    ports:
+      - "8080:8080"
+    networks:
+      rede-automacao:
+
+  arcondicionado:
+    build:
+      context: ./registro
+    command: ["java", "-jar", "/app/registro.jar", "1"]
+    networks:
+      rede-automacao:
+
+  caixadesom:
+    build:
+      context: ./registro
+    command: ["java", "-jar", "/app/registro.jar", "2"]
+    networks:
+      rede-automacao:
+
+  cortina:
+    build:
+      context: ./registro
+    command: ["java", "-jar", "/app/registro.jar", "3"]
+    networks:
+      rede-automacao:
+
+  lampada:
+    build:
+      context: ./registro
+    command: ["java", "-jar", "/app/registro.jar", "4"]
+    networks:
+      rede-automacao:      
+
+  televisao:
+    build:
+      context: ./registro
+    command: ["java", "-jar", "/app/registro.jar", "5"]
+    networks:
+      rede-automacao:

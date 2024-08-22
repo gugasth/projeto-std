@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="engtelecom.std.projeto.ProjetoApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-18T00:09:06" hostname="gugasth-Inspiron-5567" time="1.999">
+  <properties/>
+  <testcase name="contextLoads()" classname="engtelecom.std.projeto.ProjetoApplicationTests" time="1.999"/>
+  <system-out><![CDATA[21:09:00.259 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [engtelecom.std.projeto.ProjetoApplicationTests]: ProjetoApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+21:09:00.410 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration engtelecom.std.ProjetoApplication for test class engtelecom.std.projeto.ProjetoApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
