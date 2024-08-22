@@ -4,8 +4,7 @@ Projeto final apresentado a disciplina de sistemas distribuídos no curso de Eng
 ## Índice
 1. [Proposta de projeto](#proposta-de-projeto)
 2. [Manual para compilar e executar o cenário de automação residencial](#manual-para-compilar-e-executar-o-cenário-de-automação-residencial)
-3. [Manual da API RESTFUL](#manual-da-API-RESTFUL)
-4. [Instalação e Configuração](#instalação-e-configuração)
+3. [Manual da API RESTFUL](#manual-da-api-restful)
 
 ## Proposta de projeto
 
